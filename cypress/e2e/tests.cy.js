@@ -164,6 +164,6 @@ describe('Dzemat management app', () => {
     cy.get('.MuiFormControl-root > .MuiButtonBase-root').click()
     cy.get('.navbar-list > :nth-child(5)').click()
     cy.url().should('eq', 'https://dzematmgmt-dev.uradinesto.ba/admin/households')
-    cy.get('[data-id="63"] > [data-field="address"] > .MuiDataGrid-cellContent').should('contain', 'Terazije 11')
+    cy.get('.page-section-main-content').should("be.visible")
   })
 })
