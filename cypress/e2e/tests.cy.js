@@ -1,14 +1,17 @@
+import { faker } from '@faker-js/faker';
+import loginPage from '../page_objects/loginPage'
+import jamaatPage from '../page_objects/jamaatPage'
 describe('Dzemat management app', () => {
   beforeEach(() => {
-    cy.visit('https://dzematmgmt-dev.uradinesto.ba/login')
-    cy.get('h1').should("be.visible")
-    cy.get('#usernameOrEmail').should("be.visible")
-    cy.get('#password').should("be.visible")
-    cy.get(':nth-child(3) > .MuiButtonBase-root').should("be.visible")
-    cy.get('a').should("be.visible")
-    cy.get('#usernameOrEmail').type("admin")
-    cy.get('#password').type("admin")
-    cy.get(':nth-child(3) > .MuiButtonBase-root').click()
+    loginPage.visit("/jamaat")
+    loginPage.titleTxt().should("be.visible")
+    loginPage.usernameInp().should("be.visible")
+    loginPage.passwordInp().should("be.visible")
+    loginPage.loginBtn().should("be.visible")
+    loginPage.forgottenpassLink().should("be.visible")
+    loginPage.usernameInp().type("admin")
+    loginPage.passwordInp().type("admin")
+    loginPage.loginBtn().click()
   })
   it('DP-1 Verify that admin user can login to Dzemat MGMT webpage', () => {
     cy.get('.logo-img').should("be.visible")
@@ -41,7 +44,8 @@ describe('Dzemat management app', () => {
     cy.get('.collapse-wrapper').should("be.visible")
     cy.get('.copyright').should("be.visible")
   })
-  it('DP-3 Add "džemat" in module "Početna" on Džemat MGMT dev env', () => {
+  it.only('DP-3 Add "džemat" in module "Početna" on Džemat MGMT dev env', () => {
+    const randomCity = faker.location.city() + " " + faker.location.zipCode()
     cy.get(':nth-child(1) > .cta-content > .cta-title').should("be.visible")
     cy.get(':nth-child(1) > .cta-content > .cta-description').should("be.visible")
     cy.get(':nth-child(1) > .cta-content > .mdc-button > .mdc-button__ripple').should("be.visible")
@@ -50,7 +54,7 @@ describe('Dzemat management app', () => {
     cy.get('h1').should("be.visible")
     cy.get('#name').should("be.visible")
     cy.get('.MuiButtonBase-root').should("be.visible")
-    cy.get('#name').type("Test title")
+    cy.get('#name').type(randomCity)
     cy.get('.MuiButtonBase-root').click()
     cy.get('.navbar-list > :nth-child(4)').click()
     cy.url().should('eq', 'https://dzematmgmt-dev.uradinesto.ba/admin/jamaats')
@@ -64,7 +68,18 @@ describe('Dzemat management app', () => {
     cy.get('[tabindex="0"] > .MuiDataGrid-columnHeaderDraggableContainer > .MuiDataGrid-columnHeaderTitleContainer').should("be.visible")
     cy.get('[aria-colindex="2"] > .MuiDataGrid-columnHeaderDraggableContainer > .MuiDataGrid-columnHeaderTitleContainer > .MuiDataGrid-columnHeaderTitleContainerContent > .MuiDataGrid-columnHeaderTitle').should("be.visible")
     cy.get('[aria-colindex="3"] > .MuiDataGrid-columnHeaderDraggableContainer > .MuiDataGrid-columnHeaderTitleContainer > .MuiDataGrid-columnHeaderTitleContainerContent > .MuiDataGrid-columnHeaderTitle').should("be.visible")
-    cy.get('[data-id="89"] > [data-field="name"] > .MuiDataGrid-cellContent').should('contain' ,'Test')
+    cy.get('.MuiInputBase-root').type(randomCity)
+    cy.get('.MuiInputAdornment-root > .MuiButtonBase-root').click()
+    cy.get('[data-field="name"] > .MuiDataGrid-cellContent').contains(randomCity)
+    //Ovdje kroz search input pretraziti prvo kreirani dzemat pa provjeriti je li imamo tog dzemata u rezultatima
+    //
+    //Takodjer, svaki put kad kreiras neki podatak trebalo bi da ima drugi naziv, zbog toga ce biti malo nezahvalno koristiti iste testne podatke
+    //Ovdje konkretno sto u svakoj iteraciji ovog testa ce se kreirati dzemat s nazivom 'Test'
+    //Tako da kad pretrazimo po rijeci 'Test' dobiti cemo vise istih rezultata i necemo znati koji od tih dzemata je iz ove iteracije kreiran
+    //
+    //Isto vrijedi i za naredne testove. Moras svaki zapis pretraziti pa da ti izbaci rezultat, tako ces biti najsigurnija u ishode
+    //
+    //Koristeci NPM paket Faker.js mozes jednostavno generisati nove rijeci za upotrebu, mozemo na jednom mentorskom satu proci kroz
   })
   it('DP-4 Add "imam" in module "Početna" on Džemat MGMT dev env', () => {
     cy.get(':nth-child(2) > .cta-content > .cta-title').should("be.visible")
@@ -108,7 +123,7 @@ describe('Dzemat management app', () => {
     cy.get('[aria-colindex="6"] > .MuiDataGrid-columnHeaderDraggableContainer > .MuiDataGrid-columnHeaderTitleContainer').should("be.visible")
     cy.get('[aria-colindex="7"] > .MuiDataGrid-columnHeaderDraggableContainer > .MuiDataGrid-columnHeaderTitleContainer > .MuiDataGrid-columnHeaderTitleContainerContent > .MuiDataGrid-columnHeaderTitle').should("be.visible")
     cy.get('[aria-colindex="8"] > .MuiDataGrid-columnHeaderDraggableContainer > .MuiDataGrid-columnHeaderTitleContainer').should("be.visible")
-    cy.get('[data-id="22"] > [data-field="fname"] > .MuiDataGrid-cellContent').should('contain' ,'Merima')
+    cy.get('[data-id="22"] > [data-field="fname"] > .MuiDataGrid-cellContent').should('contain', 'Merima')
   })
   it('DP-5 Add "blagajnik" in module "Početna" on Džemat MGMT dev env', () => {
     cy.get(':nth-child(3) > .cta-content > .cta-title').should("be.visible")
@@ -133,7 +148,7 @@ describe('Dzemat management app', () => {
     cy.get(':nth-child(7) > .MuiButtonBase-root').click()
     cy.get('.navbar-list > :nth-child(3)').click()
     cy.url().should('eq', 'https://dzematmgmt-dev.uradinesto.ba/admin/treasurers')
-    cy.get('[data-id="9"] > [data-field="fname"] > .MuiDataGrid-cellContent').should('contain' ,'Merima')
+    cy.get('[data-id="9"] > [data-field="fname"] > .MuiDataGrid-cellContent').should('contain', 'Merima')
   })
   it('DP-6 Add "domaćinstvo" in module "Početna" on Dzemat MGMT webpage', () => {
     cy.get(':nth-child(4) > .cta-content > .cta-title').should("be.visible")
