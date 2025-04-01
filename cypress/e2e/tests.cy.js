@@ -44,7 +44,7 @@ describe('Dzemat management app', () => {
     cy.get('.collapse-wrapper').should("be.visible")
     cy.get('.copyright').should("be.visible")
   })
-  it.only('DP-3 Add "džemat" in module "Početna" on Džemat MGMT dev env', () => {
+  it('DP-3 Add "džemat" in module "Početna" on Džemat MGMT dev env', () => {
     const randomCity = faker.location.city() + " " + faker.location.zipCode()
     cy.get(':nth-child(1) > .cta-content > .cta-title').should("be.visible")
     cy.get(':nth-child(1) > .cta-content > .cta-description').should("be.visible")
@@ -81,7 +81,12 @@ describe('Dzemat management app', () => {
     //
     //Koristeci NPM paket Faker.js mozes jednostavno generisati nove rijeci za upotrebu, mozemo na jednom mentorskom satu proci kroz
   })
-  it('DP-4 Add "imam" in module "Početna" on Džemat MGMT dev env', () => {
+  it.only('DP-4 Add "imam" in module "Početna" on Džemat MGMT dev env', () => {
+    const randomName = faker.person.firstName()
+    const randomLastName = faker.person.lastName()
+    const randomMiddleName = faker.person.middleName()
+    const randomCity = faker.location.city()
+    const randomID = faker.finance.accountNumber()
     cy.get(':nth-child(2) > .cta-content > .cta-title').should("be.visible")
     cy.get(':nth-child(2) > .cta-content > .cta-description').should("be.visible")
     cy.get(':nth-child(2) > .cta-content > .mdc-button > .mdc-button__ripple').should("be.visible")
@@ -97,12 +102,12 @@ describe('Dzemat management app', () => {
     cy.get('#education').should("be.visible")
     cy.get('.MuiFormControlLabel-root').should("be.visible")
     cy.get('.MuiFormControl-root > .MuiButtonBase-root').should("be.visible")
-    cy.get('#fname').type("Merima")
-    cy.get('#lname').type("Test")
-    cy.get('#fatherName').type("Samir")
-    cy.get('#jmbg').type("6666666666666666")
-    cy.get('.MuiStack-root > .MuiFormControl-root > .MuiInputBase-root').type('20021988')
-    cy.get('#birthPlace').type("Sanski Most")
+    cy.get('#fname').type(randomName)
+    cy.get('#lname').type(randomLastName)
+    cy.get('#fatherName').type(randomMiddleName)
+    cy.get('#jmbg').type(randomID)
+    cy.get('.MuiStack-root > .MuiFormControl-root > .MuiInputBase-root').type('12121992')
+    cy.get('#birthPlace').type(randomCity)
     cy.get('#education').click()
     cy.get('[data-value="2"]').click()
     cy.get('.MuiFormControl-root > .MuiButtonBase-root').click()
@@ -123,7 +128,9 @@ describe('Dzemat management app', () => {
     cy.get('[aria-colindex="6"] > .MuiDataGrid-columnHeaderDraggableContainer > .MuiDataGrid-columnHeaderTitleContainer').should("be.visible")
     cy.get('[aria-colindex="7"] > .MuiDataGrid-columnHeaderDraggableContainer > .MuiDataGrid-columnHeaderTitleContainer > .MuiDataGrid-columnHeaderTitleContainerContent > .MuiDataGrid-columnHeaderTitle').should("be.visible")
     cy.get('[aria-colindex="8"] > .MuiDataGrid-columnHeaderDraggableContainer > .MuiDataGrid-columnHeaderTitleContainer').should("be.visible")
-    cy.get('[data-id="22"] > [data-field="fname"] > .MuiDataGrid-cellContent').should('contain', 'Merima')
+    cy.get('.MuiInputBase-root').type(randomName)
+    cy.get('.MuiInputAdornment-root > .MuiButtonBase-root').click()
+    cy.get('[data-field="name"] > .MuiDataGrid-cellContent').contains(randomName)
   })
   it('DP-5 Add "blagajnik" in module "Početna" on Džemat MGMT dev env', () => {
     cy.get(':nth-child(3) > .cta-content > .cta-title').should("be.visible")
