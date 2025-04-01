@@ -130,7 +130,7 @@ describe('Dzemat management app', () => {
     cy.get('[aria-colindex="8"] > .MuiDataGrid-columnHeaderDraggableContainer > .MuiDataGrid-columnHeaderTitleContainer').should("be.visible")
     cy.get('.MuiInputBase-root').type(randomName)
     cy.get('.MuiInputAdornment-root > .MuiButtonBase-root').click()
-    cy.get('[data-field="name"] > .MuiDataGrid-cellContent').contains(randomName)
+    cy.get('[data-field="name"] > .MuiDataGrid-cellContent').should('contain', randomName)
   })
   it('DP-5 Add "blagajnik" in module "Početna" on Džemat MGMT dev env', () => {
     cy.get(':nth-child(3) > .cta-content > .cta-title').should("be.visible")
