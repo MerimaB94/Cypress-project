@@ -7,6 +7,97 @@ class homePage {
     logoImg() {
         return cy.get('.logo-img')
     }
-     
+
+    homeTxt() {
+        return cy.get('.navbar-list > :nth-child(1)')
+    }
+
+    imamsTxt() {
+        return cy.get('.navbar-list > :nth-child(2)')
+    }
+
+    treasurersTxt () {
+        return cy.get('.navbar-list > :nth-child(3)')
+    }
+
+    jamaatsTxt () {
+        return cy.get('.navbar-list > :nth-child(4)')
+    }
+
+    householdsTxt () {
+        return cy.get('.navbar-list > :nth-child(5)')
+    }
+
+    cemeteriesTxt () {
+        return cy.get('.navbar-list > :nth-child(6)')
+    }
+
+    weddingsTxt () {
+        return cy.get('.navbar-list > :nth-child(7)')
+    }
+
+    bornsTxt () {
+        return cy.get('.navbar-list > :nth-child(8)')
+    }
+
+    deathsTxt () {
+        return cy.get('.navbar-list > :nth-child(9)')
+    }
+
+    maktabsTxt () {
+        return cy.get('.navbar-list > :nth-child(10)')
+    }
+
+    usersTxt () {
+        return cy.get('.navbar-list > :nth-child(11)')
+    }
+
+    logoutTxt () {
+        return cy.get(':nth-child(12)')
+    }
+
+    addJamaatInp () {
+        return cy.get(':nth-child(1) > .cta-content')
+    }
+
+    addImamInp () {
+        return cy.get(':nth-child(2) > .cta-content')
+    }
+
+    addTreasurerInp () {
+        return cy.get(':nth-child(3) > .cta-content')
+    }
+
+    addHouseholdInp () {
+        return cy.get(':nth-child(4) > .cta-content')
+    }
+
+    addCemeteryInp () {
+        return cy.get(':nth-child(5) > .cta-content')
+    }
+
+    addUserInp () {
+        return cy.get(':nth-child(6) > .cta-content')
+    }
+
+    addBornInp () {
+        return cy.get(':nth-child(7) > .cta-content')
+    }
+
+    addDeathInp () {
+        return cy.get(':nth-child(8) > .cta-content')
+    }
+
+    addMaktabStudentInp () {
+        return cy.get(':nth-child(9) > .cta-content')
+    } 
+
+    collapseWrapperImg () {
+        return cy.get('.collapse-wrapper')
+    }
+
+    copyrightTxt () {
+        return cy.get('.copyright')
+    }
 }
 module.exports = new homePage();
