@@ -1,6 +1,7 @@
 import { faker } from '@faker-js/faker';
 import loginPage from '../page_objects/loginPage'
 import jamaatPage from '../page_objects/jamaatPage'
+import homePage from '../page_objects/homePage'
 describe('Dzemat management app', () => {
   beforeEach(() => {
     loginPage.visit("/jamaat")
@@ -13,8 +14,8 @@ describe('Dzemat management app', () => {
     loginPage.passwordInp().type("admin")
     loginPage.loginBtn().click()
   })
-  it('DP-1 Verify that admin user can login to Dzemat MGMT webpage', () => {
-    cy.get('.logo-img').should("be.visible")
+  it.only('DP-1 Verify that admin user can login to Dzemat MGMT webpage', () => {
+    homePage.logoImg().should("be.visible")
     cy.url().should('eq', 'https://dzematmgmt-dev.uradinesto.ba/admin/home')
   })
 
