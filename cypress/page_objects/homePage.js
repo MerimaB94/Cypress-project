@@ -99,5 +99,31 @@ class homePage {
     copyrightTxt () {
         return cy.get('.copyright')
     }
+
+    jamaatTitTxt () {
+        return cy.get(':nth-child(1) > .cta-content > .cta-title')
+    }
+
+    jamaatDesTxt () {
+        return cy.get(':nth-child(1) > .cta-content > .cta-description')
+    }
+
+    jamaatBtn () {
+        return cy.get(':nth-child(1) > .cta-content > .mdc-button > .mdc-button__label')
+    }
+
+    jamaatsTitTxt () {
+        return cy.get('h1')
+    }
+
+    jamaatInp () {
+        return cy.get('#name')
+    }
+
+    savejamaatBtn () {
+        return cy.get('.MuiButtonBase-root')
+    }
+    
+
 }
 module.exports = new homePage();

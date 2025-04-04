@@ -19,7 +19,7 @@ describe('Dzemat management app', () => {
     cy.url().should('eq', 'https://dzematmgmt-dev.uradinesto.ba/admin/home')
   })
 
-  it.only('DP-2 Verify the content of the Dzemat MGMT homepage', () => {
+  it('DP-2 Verify the content of the Dzemat MGMT homepage', () => {
     homePage.logoImg().should("be.visible")
     homePage.homeTxt().should("be.visible")
     homePage.imamsTxt().should("be.visible")
@@ -45,42 +45,31 @@ describe('Dzemat management app', () => {
     homePage.collapseWrapperImg().should("be.visible")
     homePage.copyrightTxt().should("be.visible")
   })
-  it('DP-3 Add "džemat" in module "Početna" on Džemat MGMT dev env', () => {
+  it.only('DP-3 Add "džemat" in module "Početna" on Džemat MGMT dev env', () => {
     const randomCity = faker.location.city() + " " + faker.location.zipCode()
-    cy.get(':nth-child(1) > .cta-content > .cta-title').should("be.visible")
-    cy.get(':nth-child(1) > .cta-content > .cta-description').should("be.visible")
-    cy.get(':nth-child(1) > .cta-content > .mdc-button > .mdc-button__ripple').should("be.visible")
-    cy.get(':nth-child(1) > .cta-content > .mdc-button > .mdc-button__label').click()
-    cy.url().should('eq', 'https://dzematmgmt-dev.uradinesto.ba/admin/jamaats/add')
-    cy.get('h1').should("be.visible")
-    cy.get('#name').should("be.visible")
-    cy.get('.MuiButtonBase-root').should("be.visible")
-    cy.get('#name').type(randomCity)
-    cy.get('.MuiButtonBase-root').click()
-    cy.get('.navbar-list > :nth-child(4)').click()
+    homePage.jamaatTitTxt().should("be.visible")
+    homePage.jamaatDesTxt().should("be.visible")
+    homePage.jamaatBtn().should("be.visible")
+    homePage.jamaatBtn().click()
+    homePage.jamaatsTitTxt().should("be.visible")
+    homePage.jamaatInp().should("be.visible")
+    homePage.savejamaatBtn().should("be.visible")
+    homePage.jamaatInp().type(randomCity)
+    homePage.savejamaatBtn().click()
+    homePage.jamaatsTxt().click()
     cy.url().should('eq', 'https://dzematmgmt-dev.uradinesto.ba/admin/jamaats')
-    cy.get('.cta-content').should("be.visible")
-    cy.get('.cta-title').should("be.visible")
-    cy.get('.cta-description').should("be.visible")
-    cy.get('.mdc-button__ripple').should("be.visible")
-    cy.get('.page-section-main-content > :nth-child(2)').should("be.visible")
-    cy.get('#searchField').should("be.visible")
-    cy.get('.MuiInputAdornment-root > .MuiButtonBase-root').should("be.visible")
-    cy.get('[tabindex="0"] > .MuiDataGrid-columnHeaderDraggableContainer > .MuiDataGrid-columnHeaderTitleContainer').should("be.visible")
-    cy.get('[aria-colindex="2"] > .MuiDataGrid-columnHeaderDraggableContainer > .MuiDataGrid-columnHeaderTitleContainer > .MuiDataGrid-columnHeaderTitleContainerContent > .MuiDataGrid-columnHeaderTitle').should("be.visible")
-    cy.get('[aria-colindex="3"] > .MuiDataGrid-columnHeaderDraggableContainer > .MuiDataGrid-columnHeaderTitleContainer > .MuiDataGrid-columnHeaderTitleContainerContent > .MuiDataGrid-columnHeaderTitle').should("be.visible")
-    cy.get('.MuiInputBase-root').type(randomCity)
-    cy.get('.MuiInputAdornment-root > .MuiButtonBase-root').click()
-    cy.get('[data-field="name"] > .MuiDataGrid-cellContent').contains(randomCity)
-    //Ovdje kroz search input pretraziti prvo kreirani dzemat pa provjeriti je li imamo tog dzemata u rezultatima
-    //
-    //Takodjer, svaki put kad kreiras neki podatak trebalo bi da ima drugi naziv, zbog toga ce biti malo nezahvalno koristiti iste testne podatke
-    //Ovdje konkretno sto u svakoj iteraciji ovog testa ce se kreirati dzemat s nazivom 'Test'
-    //Tako da kad pretrazimo po rijeci 'Test' dobiti cemo vise istih rezultata i necemo znati koji od tih dzemata je iz ove iteracije kreiran
-    //
-    //Isto vrijedi i za naredne testove. Moras svaki zapis pretraziti pa da ti izbaci rezultat, tako ces biti najsigurnija u ishode
-    //
-    //Koristeci NPM paket Faker.js mozes jednostavno generisati nove rijeci za upotrebu, mozemo na jednom mentorskom satu proci kroz
+    jamaatPage.addjamaatInp().should("be.visible")
+    jamaatPage.jamaatTitTxt().should("be.visible")
+    jamaatPage.jamaatDesTxt().should("be.visible")
+    jamaatPage.jamaatBtn().should("be.visible")
+    jamaatPage.searchInp().should("be.visible")
+    jamaatPage.searchImg().should("be.visible")
+    jamaatPage.idHeaderTxt().should("be.visible")
+    jamaatPage.jamaatHeaderTxt().should("be.visible")
+    jamaatPage.changeHeaderTxt().should("be.visible")
+    jamaatPage.searchInp().type(randomCity)
+    jamaatPage.searchImg().click()
+    jamaatPage.jamaatNameInp().contains(randomCity)
   })
   it('DP-4 Add "imam" in module "Početna" on Džemat MGMT dev env', () => {
     const randomName = faker.person.firstName()
