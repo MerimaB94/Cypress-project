@@ -123,6 +123,18 @@ class homePage {
     savejamaatBtn () {
         return cy.get('.MuiButtonBase-root')
     }
+
+    imamTitTxt () {
+        return cy.get(':nth-child(2) > .cta-content > .cta-title')
+    }
+
+    imamDesTxt () {
+        return cy.get(':nth-child(2) > .cta-content > .cta-description')
+    }
+
+    imamBtn () {
+        return cy.get(':nth-child(2) > .cta-content > .mdc-button > .mdc-button__label')
+    }
     
 
 }
