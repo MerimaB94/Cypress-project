@@ -2,7 +2,8 @@ import { faker } from '@faker-js/faker';
 import loginPage from '../page_objects/loginPage'
 import jamaatPage from '../page_objects/jamaatPage'
 import homePage from '../page_objects/homePage'
-import imamsPage from '../page_objects/imamsPage';
+import imamsPage from '../page_objects/imamsPage'
+import treasurersPage from '../page_objects/treasurersPage';
 describe('Dzemat management app', () => {
   beforeEach(() => {
     loginPage.visit("/jamaat")
@@ -72,7 +73,7 @@ describe('Dzemat management app', () => {
     jamaatPage.searchImg().click()
     jamaatPage.jamaatNameInp().contains(randomCity)
   })
-  it.only('DP-4 Add "imam" in module "Početna" on Džemat MGMT dev env', () => {
+  it('DP-4 Add "imam" in module "Početna" on Džemat MGMT dev env', () => {
     const randomName = faker.person.firstName()
     const randomLastName = faker.person.lastName()
     const randomMiddleName = faker.person.middleName()
@@ -119,37 +120,36 @@ describe('Dzemat management app', () => {
     cy.wait(10000)
     //u ovom testu mi u tabeli ne izbacuje traženi podatak, samo prikaže praznu tabelu
   })
-  it('DP-5 Add "blagajnik" in module "Početna" on Džemat MGMT dev env', () => {
+  it.only('DP-5 Add "blagajnik" in module "Početna" on Džemat MGMT dev env', () => {
     const randomName = faker.person.firstName()
     const randomLastName = faker.person.lastName()
     const randomMiddleName = faker.person.middleName()
     const randomID = faker.finance.accountNumber()
     const randomCity = faker.location.city() + " " + faker.location.zipCode()
-    cy.get(':nth-child(3) > .cta-content > .cta-title').should("be.visible")
-    cy.get(':nth-child(3) > .cta-content > .cta-description').should("be.visible")
-    cy.get(':nth-child(3) > .cta-content > .mdc-button > .mdc-button__ripple').should("be.visible")
-    cy.get(':nth-child(3) > .cta-content > .mdc-button > .mdc-button__label').click()
+    homePage.treasurerTitTxt().should("be.visible")
+    homePage.treasurerDesTxt().should("be.visible")
+    homePage.treasurerBtn().click()
     cy.url().should('eq', 'https://dzematmgmt-dev.uradinesto.ba/admin/treasurer/add')
-    cy.get('h1').should("be.visible")
-    cy.get('#fname').should("be.visible")
-    cy.get('#lname').should("be.visible")
-    cy.get('#fatherName').should("be.visible")
-    cy.get('#jmbg').should("be.visible")
-    cy.get('#birthPlace').should("be.visible")
-    cy.get('.MuiInputAdornment-root > .MuiButtonBase-root').should("be.visible")
-    cy.get(':nth-child(7) > .MuiButtonBase-root').should("be.visible")
-    cy.get('#fname').type(randomName)
-    cy.get('#lname').type(randomLastName)
-    cy.get('#fatherName').type(randomMiddleName)
-    cy.get('#jmbg').type(randomID)
-    cy.get('#birthPlace').type(randomCity)
-    cy.get('.MuiStack-root > .MuiFormControl-root > .MuiInputBase-root').type('15021984')
-    cy.get(':nth-child(7) > .MuiButtonBase-root').click()
-    cy.get('.navbar-list > :nth-child(3)').click()
+    treasurersPage.treasurersTitTxt().should("be.visible")
+    treasurersPage.treasurerNameInp().should("be.visible")
+    treasurersPage.treasurerSurnameInp().should("be.visible")
+    treasurersPage.treasurerMiddleNameInp().should("be.visible")
+    treasurersPage.treasurerJmbgInp().should("be.visible")
+    treasurersPage.treasurerBirthPlaceInp().should("be.visible")
+    treasurersPage.treasurerBirthDateInp().should("be.visible")
+    treasurersPage.treasurerSaveBtn().should("be.visible")
+    treasurersPage.treasurerNameInp().type(randomName)
+    treasurersPage.treasurerSurnameInp().type(randomLastName)
+    treasurersPage.treasurerMiddleNameInp().type(randomMiddleName)
+    treasurersPage.treasurerJmbgInp().type(randomID)
+    treasurersPage.treasurerBirthPlaceInp().type(randomCity)
+    treasurersPage.treasurerBirthDateInp().type('15021984')
+    treasurersPage.treasurerSaveBtn().click()
+    homePage.treasurersTxt().click()
     cy.url().should('eq', 'https://dzematmgmt-dev.uradinesto.ba/admin/treasurers')
-    cy.get('.MuiInputBase-root').type(randomName)
-    cy.get('.MuiInputAdornment-root > .MuiButtonBase-root').click()
-    cy.get('[data-field="fname"] > .MuiDataGrid-cellContent').should('contain', randomName)
+    treasurersPage.searchInp().type(randomName)
+    treasurersPage.searchImg().click()
+    treasurersPage.treasurerFieldName().should('contain', randomName)
   })
   it('DP-6 Add "domaćinstvo" in module "Početna" on Dzemat MGMT webpage', () => {
     const randomAddress = faker.location.streetAddress()

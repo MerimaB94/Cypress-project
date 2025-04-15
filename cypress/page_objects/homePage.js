@@ -135,6 +135,18 @@ class homePage {
     imamBtn () {
         return cy.get(':nth-child(2) > .cta-content > .mdc-button > .mdc-button__label')
     }
+
+    treasurerTitTxt () {
+        return cy.get(':nth-child(3) > .cta-content > .cta-title')
+    }
+
+    treasurerDesTxt () {
+        return cy.get(':nth-child(3) > .cta-content > .cta-description')
+    }
+
+    treasurerBtn () {
+        return cy.get(':nth-child(3) > .cta-content > .mdc-button > .mdc-button__label')
+    }
     
 
 }
