@@ -147,7 +147,42 @@ class homePage {
     treasurerBtn () {
         return cy.get(':nth-child(3) > .cta-content > .mdc-button > .mdc-button__label')
     }
+
+    householdTitTxt () {
+        return cy.get(':nth-child(4) > .cta-content > .cta-title')
+    }
+
+    householdDesTxt () {
+        return cy.get(':nth-child(4) > .cta-content > .cta-description')
+    }
+
+    householdBtn () {
+        return cy.get(':nth-child(4) > .cta-content > .mdc-button > .mdc-button__label')
+    }
+
+    cemeteryTitTxt () {
+        return cy.get(':nth-child(5) > .cta-content > .cta-title')
+    }
+
+    cemeteryDesTxt () {
+        return cy.get(':nth-child(5) > .cta-content > .cta-description')
+    }
+
+    cemeteryBtn () {
+        return cy.get(':nth-child(5) > .cta-content > .mdc-button > .mdc-button__label')
+    }
     
+    userTitTxt () {
+        return cy.get(':nth-child(6) > .cta-content > .cta-title')
+    }
+
+    userDesTxt () {
+        return cy.get(':nth-child(6) > .cta-content > .cta-description')
+    }
+
+    userBtn () {
+        return cy.get(':nth-child(6) > .cta-content > .mdc-button > .mdc-button__label')
+    }
 
 }
 module.exports = new homePage();
