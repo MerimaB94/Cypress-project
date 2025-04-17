@@ -4,6 +4,10 @@ class loginPage {
         return cy.visit('/')
     }
 
+    titleTxt() {
+        return cy.get('h1')
+    }
+
     usernameInp() {
         return cy.get('#usernameOrEmail')
     }
@@ -19,11 +23,6 @@ class loginPage {
     forgottenpassLink() {
         return cy.get('a')
     }
-
-    titleTxt() {
-        return cy.get('h1')
-    }
-
 
     typeInUserCredentials() {
         return cy.fixture("example").then((data) => {

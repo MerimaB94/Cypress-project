@@ -184,5 +184,29 @@ class homePage {
         return cy.get(':nth-child(6) > .cta-content > .mdc-button > .mdc-button__label')
     }
 
+    bornTitTxt () {
+        return cy.get(':nth-child(7) > .cta-content > .cta-title')
+    }
+
+    bornDesTxt () {
+        return cy.get(':nth-child(7) > .cta-content > .cta-description')
+    }
+
+    bornBtn () {
+        return cy.get(':nth-child(7) > .cta-content > .mdc-button > .mdc-button__label')
+    }
+
+    deathsTitTxt () {
+        return cy.get(':nth-child(8) > .cta-content > .cta-title')
+    }
+
+    deathDesTxt () {
+        return cy.get(':nth-child(8) > .cta-content > .cta-description')
+    }
+
+    deathBtn () {
+        return cy.get(':nth-child(8) > .cta-content > .mdc-button > .mdc-button__label')
+    }
+
 }
 module.exports = new homePage();
