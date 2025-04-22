@@ -20,8 +20,7 @@ describe('Dzemat management app', () => {
     loginPage.passwordInp().should("be.visible")
     loginPage.loginBtn().should("be.visible")
     loginPage.forgottenpassLink().should("be.visible")
-    loginPage.usernameInp().type("admin")
-    loginPage.passwordInp().type("admin")
+    loginPage.typeInUserCredentials()
     loginPage.loginBtn().click()
   })
   it('DP-1 Verify that admin user can login to Dzemat MGMT webpage', () => {
@@ -153,8 +152,9 @@ describe('Dzemat management app', () => {
     treasurersPage.treasurerBirthPlaceInp().type(randomCity)
     treasurersPage.treasurerBirthDateInp().type('15021984')
     treasurersPage.treasurerSaveBtn().click()
+    cy.intercept('GET', "https://dzematmgmt-api-dev.uradinesto.ba/api/treasurers").as("getTreasurers")
     homePage.treasurersTxt().click()
-    cy.url().should('eq', 'https://dzematmgmt-dev.uradinesto.ba/admin/treasurers')
+    cy.wait('@getTreasurers').url().should('eq', 'https://dzematmgmt-dev.uradinesto.ba/admin/treasurers')
     treasurersPage.searchInp().type(randomName)
     treasurersPage.searchImg().click()
     treasurersPage.treasurerFieldName().should('contain', randomName)
@@ -350,8 +350,7 @@ describe('Dzemat management app', () => {
     addMualimPage.phoneInp().type(randomMobPhone)
     addMualimPage.emailInp().type(randomEmail)
     addMualimPage.entryDateInp().type('09082015')
-    addMualimPage.saveBtn().click()
-    //Ovdje nisam sigurna kako kroz cy izaci iz ove pod-forme Mektebski mualima da bih se vratila na modul Mekteb na sidebar, da provjerim unos 
+    addMualimPage.saveBtn().click().type('{esc}')
   })
   it('DP-12 Add "polaznik" in module "Mekteb" on Džemat MGMT dev env', () => {
     const randomName = faker.person.firstName()
@@ -390,7 +389,7 @@ describe('Dzemat management app', () => {
     addStudentPage.emailInp().type(randomEmail)
     addStudentPage.entryDateInp().type('20122020')
     addStudentPage.saveBtn().click()
-    //ista stvar kao i prethodni case, nisam sigurna kako izaci iz ove pod-forme Mektebski polaznik da bih se vratila na modul Mekteb na sidebar radi provjere unosa
+    addMualimPage.saveBtn().click().type('{esc}')
   })
   it('DP-13 Verify that admin user can logout from the Dzemat MGMT webpage', () => {
     homePage.logoutTxt().click()
